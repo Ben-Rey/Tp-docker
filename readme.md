@@ -6,6 +6,11 @@
 $ docker swarm init
 $ docker stack deploy -c docker-compose.yml swarmnodeapp
 ```
+Check running services 
+
+```
+$ docker service ls
+```
 
 [Link to front localhost](http://localhost:3001/)
 
@@ -19,7 +24,7 @@ $ docker swarm leave --force
 
 ## Choix techno
 
-* Docker swarm => orchestration de container
+* Docker swarm => orchestration de conteneurs
 	Outil qui facilite l’orchestration des conteneurs docker et permet d’en ajouter selon la demande (Load balancing). On pourra donc scaler l’application selon le nombre de connections par exemple
 
 * ReactJs => font-end 
@@ -33,6 +38,16 @@ Python Django pourrait aussi être utilisé, c’est d’ailleurs le cas pour pl
 	Comme le projet est jeune et s’attaque a un marché concurrentiel, le noSql permettra un développement plus rapide et permettra de modifier la structure de données plus simplement. Le NoSQL est plus simple a partager entre plusieurs serveur , ainsi cela favorise une scalabilité horizontale.
 
 ## Architecture
-Pour l’architecture nous aurons un proxy nginx qui fera office de load balancer. 3 (ou plus) instances de l’api qui seront orchestrées a l’aide de swarm. En effet il suffit d’augmenter le nombre de replica si la demande est forte. D’une autre part, swarm s’occupera de relancer un container qui sera down. Nous aurons aussi deux bases de données mongodb, une pour la partie business et l’autre pour les logs. Pour chaque bases de données, il y aura une instance de mongo express qui est une interface graphique permettant la gestion de nos données. Pour finir, une application avec le framework reactJs en front end 
+Pour l’architecture nous aurons un proxy nginx qui fera office de load balancer. 3 (ou plus) instances de l’api qui seront orchestrées a l’aide de swarm. En effet il suffit d’augmenter le nombre de replica si la demande est forte. D’une autre part, swarm s’occupera de relancer un conteneur qui sera down. Nous aurons aussi deux bases de données mongodb, une pour la partie business et l’autre pour les logs. Pour chaque bases de données, il y aura une instance de mongo express qui est une interface graphique permettant la gestion de nos données. Pour finir, une application avec le framework reactJs en front end. 
 
+***
+***
+***
 ![Image of Yaktocat](./exemple.png)
+***
+***
+***
+
+## Result
+
+![Image of Yaktocat](./troisApi.png)

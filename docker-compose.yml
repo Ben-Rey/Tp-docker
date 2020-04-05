@@ -17,7 +17,9 @@ services:
        parallelism: 3
        delay: 10s
    networks: 
-    - mynet 
+    mynet:
+      aliases:
+        - nodeapp
 
   app:
    image: benfel/reactdockerexo2:lastest
@@ -41,7 +43,10 @@ services:
       placement:
         constraints: [node.role == manager]
     networks: 
-      - mynet
+      mynet:
+        aliases:
+          - proxy
+
 
   db:
     image: mongo:latest
