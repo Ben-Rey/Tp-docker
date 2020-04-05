@@ -14,6 +14,10 @@ $ docker service ls
 
 [Link to front localhost](http://localhost:3001/)
 
+[Link to db monitor](http://localhost:8082/)
+
+[Link to db-log monitor](http://localhost:8082/)
+
 ## Stop Project
 
 ``` 
