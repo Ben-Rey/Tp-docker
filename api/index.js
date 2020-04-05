@@ -6,6 +6,7 @@ const port = 5000;
 
 app.use(cors());
 
+
 app.get("/", (req, res) => {
   res.send(`<h3>It's ${os.hostname()}</h3>`);
 });
