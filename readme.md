@@ -1,5 +1,19 @@
 #TP Docker
 
+## Run Project
+
+``` 
+$ docker swarm init
+$ docker stack deploy -c docker-compose.yml swarmnodeapp
+```
+
+## Stop Project
+
+``` 
+$ docker stack rm swarmnodeapp
+$ docker swarm leave --force
+```
+
 
 ## Choix techno
 
