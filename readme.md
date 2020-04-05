@@ -7,6 +7,8 @@ $ docker swarm init
 $ docker stack deploy -c docker-compose.yml swarmnodeapp
 ```
 
+[Link to front localhost](http://localhost:3001/)
+
 ## Stop Project
 
 ``` 
