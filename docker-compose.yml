@@ -1,0 +1,91 @@
+
+version: '3'
+
+services:
+  nodeapp:
+   image: benfel/nodedockerexo2:lastest
+   ports:
+     - 5000:5000
+   volumes:
+     - ./api:/api
+   deploy:
+     replicas: 3
+     restart_policy:
+       max_attempts: 3
+       condition: on-failure       
+     update_config:
+       parallelism: 3
+       delay: 10s
+   networks: 
+    - mynet 
+
+  app:
+   image: benfel/reactdockerexo2:lastest
+   volumes:
+     - ./app:/app
+     - /app/node_modules
+   ports:
+     - 3001:3000
+   networks: 
+     - mynet
+
+  proxy:
+    image: benfel/nginxdockerexo:lastest
+    ports:
+      - 80:80
+      - 81:81
+    depends_on:
+      - nodeapp
+      - app
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks: 
+      - mynet
+
+  db:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks: 
+      - mynet
+
+  db-logs:
+    image: mongo:latest
+    ports:
+      - 27018:27017
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks: 
+      - mynet
+
+  mongo-express:
+    image: mongo-express
+    environment:
+      ME_CONFIG_MONGODB_SERVER: db
+    ports:
+      - 8081:8081
+    depends_on:
+      - "db"
+    networks: 
+      - mynet
+
+  mongo-express2:
+    image: mongo-express
+    environment:
+      ME_CONFIG_MONGODB_SERVER: db-logs
+    ports:
+      - 8082:8081
+    depends_on:
+      - "db"
+    networks: 
+      - mynet
+
+
+networks:
+  mynet:
+    driver: overlay
